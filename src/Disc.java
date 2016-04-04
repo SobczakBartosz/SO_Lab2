@@ -18,6 +18,10 @@ public class Disc {
 		}	
 	} // constructor
 	
+	public int getMAX_TRACK(){
+		return MAX_TRACK;
+	} // return MAX_TRACK
+	
 	public ArrayList<Request> clone() {
 		ArrayList<Request> cloneArray = new ArrayList<Request>();
 			cloneArray.addAll(requests);
