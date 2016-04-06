@@ -68,10 +68,10 @@ public class Algorithms {
 		return result;
 	} // EDF algorithm (use real-time requests)
 	
-	public int FD_SCAN(Disc disc) {
-		int result = 0;
-		
-		return result;
-	} // FD_SCAN algorithm (use real-time requests)
-	
+//	public int FD_SCAN(Disc disc) {
+//		int result = 0;
+//		
+//		return result;
+//	} // FD_SCAN algorithm (use real-time requests)
+//	
 }
