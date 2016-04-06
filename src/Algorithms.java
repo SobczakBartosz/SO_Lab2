@@ -25,14 +25,14 @@ public class Algorithms {
 		
 		while(requestsClone.size() > 1) {
 			if(index == 0) {
-				result += requestsClone.get(index).getTrack() - requestsClone.get(index+1).getTrack();
+				result += requestsClone.get(index+1).getTrack() - requestsClone.get(index).getTrack();
 				requestsClone.remove(index);
 			} else if(index == requestsClone.size()-1) {
 				result += requestsClone.get(index).getTrack() - requestsClone.get(index-1).getTrack();
 				requestsClone.remove(index);
 				index--;
 			} else {
-				if(requestsClone.get(index).getTrack() - requestsClone.get(index-1).getTrack() > requestsClone.get(index+1).getTrack() - requestsClone.get(index).getTrack()) {
+				if(requestsClone.get(index).getTrack() - requestsClone.get(index-1).getTrack() < requestsClone.get(index+1).getTrack() - requestsClone.get(index).getTrack()) {
 				result += requestsClone.get(index).getTrack() - requestsClone.get(index-1).getTrack();
 				requestsClone.remove(index);
 				index--;
