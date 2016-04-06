@@ -2,10 +2,10 @@
 public class Request {
 	
 	private final int track;
-	private boolean deadline;
+	private int deadline;
 	private boolean isDone;
 	
-	public Request(int track, boolean deadline) {
+	public Request(int track, int deadline) {
 		this.track = track;
 		this.deadline = deadline;
 		isDone = false;
@@ -23,7 +23,7 @@ public class Request {
 		return track;
 	}
 
-	public boolean isDeadline() {
+	public int getDeadline() {
 		return deadline;
 	}
 	
