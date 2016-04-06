@@ -2,6 +2,17 @@ import java.util.*;
 
 public class Algorithms {
 	
+	public int FCFS(Disc disc) {
+		int result = 0;
+		ArrayList<Request> requestsClone = disc.clone();
+		
+		while(requestsClone.size() > 1) {
+			result += requestsClone.get(1).getTrack() - requestsClone.get(0).getTrack();
+			requestsClone.remove(0);
+		}
+		return result;
+	}
+	
 	public int scan(Disc disc) {
 		int index;
 		int result = 0;
