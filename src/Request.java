@@ -3,20 +3,20 @@ public class Request {
 	
 	private final int track;
 	private int deadline;
-	private boolean isDone;
+	private boolean priority;
 	
 	public Request(int track, int deadline) {
 		this.track = track;
 		this.deadline = deadline;
-		isDone = false;
+		
+		if(deadline != 0)
+			priority = true;
+		else
+			priority = false;
 	}
 
-	public boolean isDone() {
-		return isDone;
-	}
-
-	public void setDone(boolean isDone) {
-		this.isDone = isDone;
+	public boolean isPriority() {
+		return priority;
 	}
 
 	public int getTrack() {
@@ -25,6 +25,15 @@ public class Request {
 
 	public int getDeadline() {
 		return deadline;
+	}
+	
+	public void setDeadline(int deadline) {
+		this.deadline = deadline;
+		
+		if(deadline != 0)
+			priority = true;
+		else
+			priority = false;
 	}
 	
 	
