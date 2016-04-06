@@ -7,7 +7,10 @@ public class Algorithms {
 		ArrayList<Request> requestsClone = disc.clone();
 		
 		while(requestsClone.size() > 1) {
-			result += requestsClone.get(1).getTrack() - requestsClone.get(0).getTrack();
+			if(requestsClone.get(1).getTrack() > requestsClone.get(0).getTrack())
+				result += requestsClone.get(1).getTrack() - requestsClone.get(0).getTrack();
+			else
+				result += requestsClone.get(0).getTrack() - requestsClone.get(1).getTrack();
 			requestsClone.remove(0);
 		}
 		return result;
@@ -71,11 +74,17 @@ public class Algorithms {
 			requestsClone.remove(current);
 			current = tmp;	
 		}
+//		System.out.println(result);
 		result += (disc.getMAX_TRACK() - current.getTrack())*2;
-		while(requestsClone.size() <= 1) {
-			result += requestsClone.get(index-1).getTrack();
+//		System.out.println(result);
+		while(requestsClone.size() > 1) {
+			result += current.getTrack() - requestsClone.get(index-1).getTrack();
 			requestsClone.remove(index);
+			index--;
 		}
+//		System.out.println(result);
+		result += current.getTrack();
+//		System.out.println(result);
 		return result;
 	} // scan algorithm
 	
@@ -96,34 +105,28 @@ public class Algorithms {
 			requestsClone.remove(current);
 			current = tmp;	
 		}
-		while(requestsClone.size() <= 1) {
+		while(requestsClone.size() > 1) {
 			result += current.getTrack() - requestsClone.get(index-1).getTrack();
 			requestsClone.remove(index);
+			index--;
 		}
 		return result;
 	} //c-scan algorithm
 	
 	public int EDF(Disc disc) {
-		int index;
 		int result = 0;
-		Request current = null;
-		Request tmp = null;
 		ArrayList<Request> requestsClone = disc.clone();
 		
 		Collections.sort(requestsClone, new RequestComparator2()); //sort by deadline
-		current = requestsClone.get(0);
 		
 		while(requestsClone.size() > 1) {
-			result += requestsClone.get(1).getTrack() - requestsClone.get(0).getTrack();
+			if(requestsClone.get(1).getTrack() - requestsClone.get(0).getTrack() > 0)
+				result += (requestsClone.get(1).getTrack() - requestsClone.get(0).getTrack());
+			else
+				result += (requestsClone.get(0).getTrack() - requestsClone.get(1).getTrack());
 			requestsClone.remove(0);
 		}
 		return result;
 	} // EDF algorithm (use real-time requests)
 	
-//	public int FD_SCAN(Disc disc) {
-//		int result = 0;
-//		
-//		return result;
-//	} // FD_SCAN algorithm (use real-time requests)
-//	
 }
