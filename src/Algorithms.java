@@ -9,7 +9,7 @@ public class Algorithms {
 		Request tmp = null;
 		ArrayList<Request> requestsClone = disc.clone();
 		
-		Collections.sort(requestsClone, new RequestComparator());
+		Collections.sort(requestsClone, new RequestComparator()); //sort by track
 		index = requestsClone.size()/2;
 		current = requestsClone.get(index);
 		
@@ -34,7 +34,7 @@ public class Algorithms {
 		Request tmp = null;
 		ArrayList<Request> requestsClone = disc.clone();
 		
-		Collections.sort(requestsClone, new RequestComparator());
+		Collections.sort(requestsClone, new RequestComparator()); //sort by track
 		index = requestsClone.size()/2;
 		current = requestsClone.get(index);
 		
@@ -45,10 +45,33 @@ public class Algorithms {
 			current = tmp;	
 		}
 		while(requestsClone.size() <= 1) {
-			result += requestsClone.get(index-1).getTrack();
+			result += current.getTrack() - requestsClone.get(index-1).getTrack();
 			requestsClone.remove(index);
 		}
 		return result;
-	} //cscan algorithm
+	} //c-scan algorithm
+	
+	public int EDF(Disc disc) {
+		int index;
+		int result = 0;
+		Request current = null;
+		Request tmp = null;
+		ArrayList<Request> requestsClone = disc.clone();
+		
+		Collections.sort(requestsClone, new RequestComparator2()); //sort by deadline
+		current = requestsClone.get(0);
+		
+		while(requestsClone.size() > 1) {
+			result += requestsClone.get(1).getTrack() - requestsClone.get(0).getTrack();
+			requestsClone.remove(0);
+		}
+		return result;
+	} // EDF algorithm (use real-time requests)
+	
+	public int FD_SCAN(Disc disc) {
+		int result = 0;
+		
+		return result;
+	} // FD_SCAN algorithm (use real-time requests)
 	
 }
