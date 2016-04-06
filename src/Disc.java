@@ -5,17 +5,13 @@ public class Disc {
 	private final int MAX_TRACK;
 	ArrayList<Request> requests = new ArrayList<Request>();
 	
-	public Disc(int max, int numberOfRequests, boolean deadline) {
+	public Disc(int max_track, int numberOfRequests, int max_deadline) {
 		Random rand = new Random();
-		MAX_TRACK = max;
+		MAX_TRACK = max_track;
 		
-		if(deadline == false) {
-			for(int i = 0; i < numberOfRequests; i++)
-				requests.add(new Request(rand.nextInt(MAX_TRACK+1),false));			
-		} else {
-			for(int i = 0; i < numberOfRequests; i++)
-				requests.add(new Request(rand.nextInt(MAX_TRACK+1),rand.nextBoolean()));
-		}	
+		for(int i = 0; i < numberOfRequests; i++)
+			requests.add(new Request(rand.nextInt(MAX_TRACK+1),rand.nextInt(max_deadline+1)));
+		
 	} // constructor
 	
 	public int getMAX_TRACK(){
