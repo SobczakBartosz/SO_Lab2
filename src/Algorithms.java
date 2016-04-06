@@ -17,40 +17,28 @@ public class Algorithms {
 	} // FCFS algorithms
 	
 	public int SSTF(Disc disc) {
-		int index;
 		int result = 0;
-		Request current = null;
-		Request tmp = null;
 		ArrayList<Request> requestsClone = disc.clone();
 		
 		Collections.sort(requestsClone, new RequestComparator()); //sort by track
-		index = requestsClone.size()/2;
-		current = requestsClone.get(index);
+		int index = requestsClone.size()/2;
 		
 		while(requestsClone.size() > 1) {
 			if(index == 0) {
-				tmp = requestsClone.get(1);
-				result += current.getTrack() - tmp.getTrack();
-				requestsClone.remove(current);
-				current = tmp;
+				result += requestsClone.get(index).getTrack() - requestsClone.get(index+1).getTrack();
+				requestsClone.remove(index);
 			} else if(index == requestsClone.size()-1) {
-				tmp = requestsClone.get(requestsClone.size()-2);
-				result += current.getTrack() - tmp.getTrack();
-				requestsClone.remove(current);
-				current = tmp;
+				result += requestsClone.get(index).getTrack() - requestsClone.get(index-1).getTrack();
+				requestsClone.remove(index);
 				index--;
 			} else {
-				if(current.getTrack() - requestsClone.get(index-1).getTrack() > requestsClone.get(index+1).getTrack() - current.getTrack()) {
-				tmp = requestsClone.get(index-1);
-				result += current.getTrack() - tmp.getTrack();
-				requestsClone.remove(current);
-				current = tmp;
+				if(requestsClone.get(index).getTrack() - requestsClone.get(index-1).getTrack() > requestsClone.get(index+1).getTrack() - requestsClone.get(index).getTrack()) {
+				result += requestsClone.get(index).getTrack() - requestsClone.get(index-1).getTrack();
+				requestsClone.remove(index);
 				index--;
 				} else {
-					tmp = requestsClone.get(index+1);
-					result += tmp.getTrack() - current.getTrack();
-					requestsClone.remove(current);
-					current = tmp;
+					result += requestsClone.get(index+1).getTrack() - requestsClone.get(index).getTrack();
+					requestsClone.remove(index);
 				}
 			}
 		}
@@ -58,60 +46,46 @@ public class Algorithms {
 	} // SSTF algorithm
 	
 	public int scan(Disc disc) {
-		int index;
 		int result = 0;
-		Request current = null;
-		Request tmp = null;
 		ArrayList<Request> requestsClone = disc.clone();
 		
 		Collections.sort(requestsClone, new RequestComparator()); //sort by track
-		index = requestsClone.size()/2;
-		current = requestsClone.get(index);
+		int index = requestsClone.size()/2;
 		
 		while(index < requestsClone.size()-1) {
-			tmp = requestsClone.get(index+1);
-			result += tmp.getTrack() - current.getTrack();
-			requestsClone.remove(current);
-			current = tmp;	
+			result += requestsClone.get(index+1).getTrack() - requestsClone.get(index).getTrack();
+			requestsClone.remove(index);
 		}
-//		System.out.println(result);
-		result += (disc.getMAX_TRACK() - current.getTrack())*2;
-//		System.out.println(result);
+		result += (disc.getMAX_TRACK() - requestsClone.get(index).getTrack())*2;
+
 		while(requestsClone.size() > 1) {
-			result += current.getTrack() - requestsClone.get(index-1).getTrack();
+			result += requestsClone.get(index).getTrack() - requestsClone.get(index-1).getTrack();
 			requestsClone.remove(index);
 			index--;
 		}
-//		System.out.println(result);
-		result += current.getTrack();
-//		System.out.println(result);
+		result += requestsClone.get(index).getTrack();
+
 		return result;
-	} // scan algorithm
+	} // SCAN algorithm
 	
 	public int cscan(Disc disc) {
-		int index;
 		int result = 0;
-		Request current = null;
-		Request tmp = null;
 		ArrayList<Request> requestsClone = disc.clone();
 		
 		Collections.sort(requestsClone, new RequestComparator()); //sort by track
-		index = requestsClone.size()/2;
-		current = requestsClone.get(index);
+		int index = requestsClone.size()/2;
 		
 		while(index < requestsClone.size()-1) {
-			tmp = requestsClone.get(index+1);
-			result += tmp.getTrack() - current.getTrack();
-			requestsClone.remove(current);
-			current = tmp;	
+			result += requestsClone.get(index+1).getTrack() - requestsClone.get(index).getTrack();
+			requestsClone.remove(index);
 		}
 		while(requestsClone.size() > 1) {
-			result += current.getTrack() - requestsClone.get(index-1).getTrack();
+			result += requestsClone.get(index).getTrack() - requestsClone.get(index-1).getTrack();
 			requestsClone.remove(index);
 			index--;
 		}
 		return result;
-	} //c-scan algorithm
+	} // C-SCAN algorithm
 	
 	public int EDF(Disc disc) {
 		int result = 0;
